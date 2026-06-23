@@ -1,6 +1,6 @@
 {
   "name": "@serphouse/serphouse-nodejs",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Automate your search engines (Google, Bing, Yahoo) result (serp api) using Serphouse.com API client and retrive in structured JSON format.",
   "main": "lib/SERPHouse/index.js",
   "scripts": {
