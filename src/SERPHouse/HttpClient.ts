@@ -1,12 +1,7 @@
-import { SERPHouseError } from "./Error";
-import type {
-  ApiResponse,
-  ApiSuccessResponse,
-  ClientOptions,
-  RequestOptions,
-} from "./types";
+import { SERPHouseError } from './Error';
+import type { ApiResponse, ApiSuccessResponse, ClientOptions, RequestOptions } from './types';
 
-const DEFAULT_BASE_URL = "https://api.serphouse.com";
+const DEFAULT_BASE_URL = 'https://api.serphouse.com';
 const DEFAULT_TIMEOUT = 60_000;
 
 export class HttpClient {
@@ -16,11 +11,11 @@ export class HttpClient {
 
   constructor(options: ClientOptions) {
     if (!options.apiKey) {
-      throw new SERPHouseError("API key is required");
+      throw new SERPHouseError('API key is required');
     }
 
     this.apiKey = options.apiKey;
-    this.baseUrl = (options.baseUrl ?? DEFAULT_BASE_URL).replace(/\/$/, "");
+    this.baseUrl = (options.baseUrl ?? DEFAULT_BASE_URL).replace(/\/$/, '');
     this.timeout = options.timeout ?? DEFAULT_TIMEOUT;
   }
 
@@ -36,7 +31,7 @@ export class HttpClient {
       }
     }
 
-    return this.request<T>("GET", url.toString());
+    return this.request<T>('GET', url.toString());
   }
 
   async post<T = unknown, P extends object = object>(
@@ -44,16 +39,14 @@ export class HttpClient {
     data: P,
     requestOptions?: RequestOptions,
   ): Promise<ApiSuccessResponse<T>> {
-    const suffix = requestOptions?.responseType
-      ? `/${requestOptions.responseType}`
-      : "";
+    const suffix = requestOptions?.responseType ? `/${requestOptions.responseType}` : '';
     const url = `${this.baseUrl}${path}${suffix}`;
 
-    return this.request<T>("POST", url, { data });
+    return this.request<T>('POST', url, { data });
   }
 
   private async request<T>(
-    method: "GET" | "POST",
+    method: 'GET' | 'POST',
     url: string,
     body?: { data: object },
   ): Promise<ApiSuccessResponse<T>> {
@@ -65,7 +58,7 @@ export class HttpClient {
         method,
         headers: {
           Authorization: `Bearer ${this.apiKey}`,
-          ...(body ? { "Content-Type": "application/json" } : {}),
+          ...(body ? { 'Content-Type': 'application/json' } : {}),
         },
         body: body ? JSON.stringify(body) : undefined,
         signal: controller.signal,
@@ -75,27 +68,25 @@ export class HttpClient {
       let payload: ApiResponse<T>;
 
       try {
-        payload = text
-          ? (JSON.parse(text) as ApiResponse<T>)
-          : ({} as ApiResponse<T>);
+        payload = text ? (JSON.parse(text) as ApiResponse<T>) : ({} as ApiResponse<T>);
       } catch {
-        throw new SERPHouseError("Invalid JSON response from SERPHouse API", {
+        throw new SERPHouseError('Invalid JSON response from SERPHouse API', {
           statusCode: response.status,
         });
       }
 
       if (!response.ok) {
         throw new SERPHouseError(
-          payload.status === "error" ? payload.msg : `HTTP ${response.status}`,
+          payload.status === 'error' ? payload.msg : `HTTP ${response.status}`,
           {
             statusCode: response.status,
-            apiMessage: payload.status === "error" ? payload.msg : undefined,
-            apiError: payload.status === "error" ? payload.error : undefined,
+            apiMessage: payload.status === 'error' ? payload.msg : undefined,
+            apiError: payload.status === 'error' ? payload.error : undefined,
           },
         );
       }
 
-      if (payload.status === "error") {
+      if (payload.status === 'error') {
         throw new SERPHouseError(payload.msg, {
           statusCode: response.status,
           apiMessage: payload.msg,
@@ -109,13 +100,11 @@ export class HttpClient {
         throw error;
       }
 
-      if (error instanceof Error && error.name === "AbortError") {
+      if (error instanceof Error && error.name === 'AbortError') {
         throw new SERPHouseError(`Request timed out after ${this.timeout}ms`);
       }
 
-      throw new SERPHouseError(
-        error instanceof Error ? error.message : "Unknown request error",
-      );
+      throw new SERPHouseError(error instanceof Error ? error.message : 'Unknown request error');
     } finally {
       clearTimeout(timeoutId);
     }

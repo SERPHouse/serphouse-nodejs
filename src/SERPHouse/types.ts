@@ -1,5 +1,5 @@
 /** Device type for search result extraction. */
-export type Device = "desktop" | "mobile";
+export type Device = 'desktop' | 'mobile';
 
 /**
  * Time filter for search results.
@@ -10,16 +10,16 @@ export type Device = "desktop" | "mobile";
  * - `y` — past year
  * - `YYYY-MM-DD,YYYY-MM-DD` — custom date range
  */
-export type DateRange = "h" | "d" | "w" | "m" | "y" | `${string},${string}`;
+export type DateRange = 'h' | 'd' | 'w' | 'm' | 'y' | `${string},${string}`;
 
 /**
  * Enterprise-only NoTrace mode. When enabled (`1` or `true`), search parameters,
  * files, and metadata are not stored on SERPHouse servers.
  */
-export type NoTrace = boolean | 0 | 1 | "0" | "1" | "true" | "false";
+export type NoTrace = boolean | 0 | 1 | '0' | '1' | 'true' | 'false';
 
 /** Response format appended to POST endpoint paths (e.g. `/google-web/json`). */
-export type ResponseType = "json" | "html";
+export type ResponseType = 'json' | 'html';
 
 /** Common search parameters shared across engines. */
 export interface BaseSearchParams {
@@ -97,14 +97,14 @@ export interface RequestOptions {
 
 /** Successful API response wrapper. */
 export interface ApiSuccessResponse<T = unknown> {
-  status: "success";
+  status: 'success';
   msg: string;
   results: T;
 }
 
 /** Error API response wrapper. */
 export interface ApiErrorResponse {
-  status: "error";
+  status: 'error';
   msg: string;
   error: string | Record<string, string[]>;
 }
@@ -113,10 +113,10 @@ export interface ApiErrorResponse {
 export type ApiResponse<T = unknown> = ApiSuccessResponse<T> | ApiErrorResponse;
 
 /** Search engine type for the language list endpoint. */
-export type LanguageType = "google" | "bing" | "yahoo";
+export type LanguageType = 'google' | 'bing' | 'yahoo';
 
 /** Search engine type for the location search endpoint. */
-export type LocationType = "google" | "bing";
+export type LocationType = 'google' | 'bing';
 
 /** Parameters for the location search endpoint. */
 export interface LocationSearchParams {

@@ -1,9 +1,5 @@
-import type { HttpClient } from "../HttpClient";
-import type {
-  ApiSuccessResponse,
-  LanguageType,
-  LocationSearchParams,
-} from "../types";
+import type { HttpClient } from '../HttpClient';
+import type { ApiSuccessResponse, LanguageType, LocationSearchParams } from '../types';
 
 /** Utility API methods for account info, domains, languages, and locations. */
 export class Extra {
@@ -17,7 +13,7 @@ export class Extra {
    * @see https://docs.serphouse.com/extra-apis/account-info
    */
   account_info(): Promise<ApiSuccessResponse> {
-    return this.http.get("/account/info");
+    return this.http.get('/account/info');
   }
 
   /**
@@ -28,7 +24,7 @@ export class Extra {
    * @see https://docs.serphouse.com/extra-apis/domains-list
    */
   domain_list(): Promise<ApiSuccessResponse> {
-    return this.http.get("/domain/list");
+    return this.http.get('/domain/list');
   }
 
   /**
@@ -52,7 +48,7 @@ export class Extra {
    * @see https://docs.serphouse.com/extra-apis/locations-list
    */
   location_search(params: LocationSearchParams): Promise<ApiSuccessResponse> {
-    return this.http.get("/location/search", {
+    return this.http.get('/location/search', {
       q: params.q,
       type: params.type,
     });

@@ -1,9 +1,5 @@
-import type { HttpClient } from "../HttpClient";
-import type {
-  ApiSuccessResponse,
-  GoogleSearchParams,
-  RequestOptions,
-} from "../types";
+import type { HttpClient } from '../HttpClient';
+import type { ApiSuccessResponse, GoogleSearchParams, RequestOptions } from '../types';
 
 /** Google search engine API methods. */
 export class Google {
@@ -18,11 +14,8 @@ export class Google {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/google-apis/google-search-api
    */
-  search(
-    params: GoogleSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/google-web", params, options);
+  search(params: GoogleSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/google-web', params, options);
   }
 
   /**
@@ -34,11 +27,8 @@ export class Google {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/google-apis/google-image-api
    */
-  image(
-    params: GoogleSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/google-image", params, options);
+  image(params: GoogleSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/google-image', params, options);
   }
 
   /**
@@ -50,11 +40,8 @@ export class Google {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/google-apis/google-videos-api
    */
-  video(
-    params: GoogleSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/google-videos-api", params, options);
+  video(params: GoogleSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/google-videos-api', params, options);
   }
 
   /**
@@ -66,11 +53,8 @@ export class Google {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/google-apis/google-short-videos-api
    */
-  short_video(
-    params: GoogleSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/google-short-videos-api", params, options);
+  short_video(params: GoogleSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/google-short-videos-api', params, options);
   }
 
   /**
@@ -82,11 +66,8 @@ export class Google {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/google-apis/google-news-api
    */
-  news(
-    params: GoogleSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/google-news", params, options);
+  news(params: GoogleSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/google-news', params, options);
   }
 
   /**
@@ -98,11 +79,8 @@ export class Google {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/google-apis/google-shopping-api
    */
-  shopping(
-    params: GoogleSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/google-shop", params, options);
+  shopping(params: GoogleSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/google-shop', params, options);
   }
 
   /**
@@ -114,11 +92,8 @@ export class Google {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/google-apis/google-local-api
    */
-  local(
-    params: GoogleSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/google-local-api", params, options);
+  local(params: GoogleSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/google-local-api', params, options);
   }
 
   /**
@@ -130,11 +105,8 @@ export class Google {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/google-apis/google-jobs-api
    */
-  jobs(
-    params: GoogleSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/google-jobs-api", params, options);
+  jobs(params: GoogleSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/google-jobs-api', params, options);
   }
 
   /**
@@ -146,11 +118,8 @@ export class Google {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/google-apis/google-forums-api
    */
-  forums(
-    params: GoogleSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/google-forums-api", params, options);
+  forums(params: GoogleSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/google-forums-api', params, options);
   }
 
   /**
@@ -162,10 +131,7 @@ export class Google {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/google-apis/google-autocomplete-api
    */
-  autocomplete(
-    params: GoogleSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/google-autocomplete-api", params, options);
+  autocomplete(params: GoogleSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/google-autocomplete-api', params, options);
   }
 }

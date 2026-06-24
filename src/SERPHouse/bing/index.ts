@@ -1,1 +1,1 @@
-export { Bing } from "./Bing";
+export { Bing } from './Bing';

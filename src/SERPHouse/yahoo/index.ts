@@ -1,1 +1,1 @@
-export { Yahoo } from "./Yahoo";
+export { Yahoo } from './Yahoo';

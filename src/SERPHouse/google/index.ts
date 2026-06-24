@@ -1,1 +1,1 @@
-export { Google } from "./Google";
+export { Google } from './Google';

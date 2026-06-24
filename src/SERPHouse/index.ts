@@ -4,12 +4,12 @@
  * @packageDocumentation
  */
 
-export { SERPHouse } from "./SERPHouse";
-export { SERPHouseError } from "./Error";
-export { Google } from "./google";
-export { Bing } from "./bing";
-export { Yahoo } from "./yahoo";
-export { Extra } from "./extra";
+export { SERPHouse } from './SERPHouse';
+export { SERPHouseError } from './Error';
+export { Google } from './google';
+export { Bing } from './bing';
+export { Yahoo } from './yahoo';
+export { Extra } from './extra';
 export type {
   ApiResponse,
   ApiSuccessResponse,
@@ -28,4 +28,4 @@ export type {
   ResponseType,
   YahooImageParams,
   YahooSearchParams,
-} from "./types";
+} from './types';

@@ -1,10 +1,10 @@
-import type { HttpClient } from "../HttpClient";
+import type { HttpClient } from '../HttpClient';
 import type {
   ApiSuccessResponse,
   RequestOptions,
   YahooImageParams,
   YahooSearchParams,
-} from "../types";
+} from '../types';
 
 /** Yahoo search engine API methods. */
 export class Yahoo {
@@ -19,11 +19,8 @@ export class Yahoo {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/yahoo-apis/yahoo-search-api
    */
-  search(
-    params: YahooSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/yahoo-web", params, options);
+  search(params: YahooSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/yahoo-web', params, options);
   }
 
   /**
@@ -35,11 +32,8 @@ export class Yahoo {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/yahoo-apis/yahoo-image-api
    */
-  image(
-    params: YahooImageParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/yahoo-image", params, options);
+  image(params: YahooImageParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/yahoo-image', params, options);
   }
 
   /**
@@ -51,10 +45,7 @@ export class Yahoo {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/yahoo-apis/yahoo-news-api
    */
-  news(
-    params: YahooSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/yahoo-news", params, options);
+  news(params: YahooSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/yahoo-news', params, options);
   }
 }

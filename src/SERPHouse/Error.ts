@@ -1,4 +1,4 @@
-import type { ApiErrorResponse } from "./types";
+import type { ApiErrorResponse } from './types';
 
 /**
  * Error thrown when a SERPHouse API request fails.
@@ -20,7 +20,7 @@ export class SERPHouseError extends Error {
   /** Human-readable error message from the API. */
   readonly apiMessage: string;
   /** Structured validation or error details from the API. */
-  readonly apiError: ApiErrorResponse["error"];
+  readonly apiError: ApiErrorResponse['error'];
 
   /**
    * @param message - Error message.
@@ -31,13 +31,13 @@ export class SERPHouseError extends Error {
     options?: {
       statusCode?: number;
       apiMessage?: string;
-      apiError?: ApiErrorResponse["error"];
+      apiError?: ApiErrorResponse['error'];
     },
   ) {
     super(message);
-    this.name = "SERPHouseError";
+    this.name = 'SERPHouseError';
     this.statusCode = options?.statusCode;
     this.apiMessage = options?.apiMessage ?? message;
-    this.apiError = options?.apiError ?? "";
+    this.apiError = options?.apiError ?? '';
   }
 }

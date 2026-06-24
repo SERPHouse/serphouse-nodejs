@@ -1,9 +1,5 @@
-import type { HttpClient } from "../HttpClient";
-import type {
-  ApiSuccessResponse,
-  BingSearchParams,
-  RequestOptions,
-} from "../types";
+import type { HttpClient } from '../HttpClient';
+import type { ApiSuccessResponse, BingSearchParams, RequestOptions } from '../types';
 
 /** Bing search engine API methods. */
 export class Bing {
@@ -18,11 +14,8 @@ export class Bing {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/bing-apis/bing-search-api
    */
-  search(
-    params: BingSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/bing-web", params, options);
+  search(params: BingSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/bing-web', params, options);
   }
 
   /**
@@ -34,11 +27,8 @@ export class Bing {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/bing-apis/bing-image-api
    */
-  image(
-    params: BingSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/bing-image", params, options);
+  image(params: BingSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/bing-image', params, options);
   }
 
   /**
@@ -50,10 +40,7 @@ export class Bing {
    * @throws {@link SERPHouseError} When the API returns an error or the request fails.
    * @see https://docs.serphouse.com/bing-apis/bing-news-api
    */
-  news(
-    params: BingSearchParams,
-    options?: RequestOptions,
-  ): Promise<ApiSuccessResponse> {
-    return this.http.post("/bing-news", params, options);
+  news(params: BingSearchParams, options?: RequestOptions): Promise<ApiSuccessResponse> {
+    return this.http.post('/bing-news', params, options);
   }
 }
