@@ -1,374 +1,241 @@
+<div align="center">
+
+<img src="src/assets/serphouse-logo.png" alt="SERPHouse logo" width="80" />
+
 # @serphouse/serphouse-nodejs
 
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SERPHouse/serphouse-nodejs/run-tests.yml?logo=githubactions&label=Tests%20with%20Jest)](https://github.com/SERPHouse/serphouse-nodejs/actions/workflows/run-tests.yml)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SERPHouse/serphouse-nodejs/linter.yml?logo=githubactions&label=Code%20Quality)](https://github.com/SERPHouse/serphouse-nodejs/actions/workflows/linter.yml)
-[![NPM Version](https://img.shields.io/npm/v/%40serphouse%2Fserphouse-nodejs)](https://www.npmjs.com/package/@serphouse/serphouse-nodejs)
+**The official Node.js SDK for live SERP data — Google, Bing, Yahoo, and SEO intelligence — powered by [SERPHouse](https://serphouse.com).**
 
-SERPHouse API is the starting point on your journey towards building a powerful SEO software. With SERPHouse you can get all the data you’d need to build an efficient application while also saving your time and your budget.
+Run Google, Bing, and Yahoo searches, resolve locations, and query Jobs, Local, Videos, and more — directly from your Node.js app or TypeScript project. Structured JSON in, production-ready results out.
 
-This comprehensive document designed to provide you with all the technical information as well as product information you need to interact with our API and harness its full potential. Whether you're a software developer integrating SERPHouse SERP API services into your application or a curious user exploring the possibilities, this API documentation will serve as your go-to resource.
+<br />
 
-High Volume SERP API for SEO professionals and data scientist. We built reliable, accurate and cost efficient solution, We take cares of resolving captcha, managing proxy to ensure you get reliable Structured JSON data.
+[![TypeScript 5+](https://img.shields.io/badge/TypeScript-5%2B-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Node.js 18+](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![npm](https://img.shields.io/npm/v/%40serphouse%2Fserphouse-nodejs?logo=npm)](https://www.npmjs.com/package/@serphouse/serphouse-nodejs)
+[![Tests](https://img.shields.io/github/actions/workflow/status/SERPHouse/serphouse-nodejs/run-tests.yml?logo=githubactions&label=Tests)](https://github.com/SERPHouse/serphouse-nodejs/actions/workflows/run-tests.yml)
+[![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-This API supported Serphouse's standard REST API that accepts/returns JSON requests. Here is the [API reference](https://docs.serphouse.com/)
+[![Website](https://img.shields.io/badge/Website-serphouse.com-7B42BC)](https://serphouse.com)
+[![API Docs](https://img.shields.io/badge/API-Docs-7B42BC)](https://docs.serphouse.com/)
+[![GitHub](https://img.shields.io/badge/GitHub-SERPHouse-181717?logo=github)](https://github.com/SERPHouse/serphouse-nodejs)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-SERPHouse-0A66C2?logo=linkedin)](https://linkedin.com/company/serphouse)
 
-##### It does supports EcmaScript 5, EcmaScript 6, EcmaScript 8, TypeScript, async-await, Promises, Callback!!!
+</div>
 
-##### It supports pure JSON response.
+---
 
-##### All methods support Promise and Callback both.
+## Table of Contents
 
-## Get started
+- [Why This SDK](#why-this-sdk)
+- [Quick Start](#quick-start)
+- [What You Can Build](#what-you-can-build)
+- [SDK Overview](#sdk-overview)
+- [Client Options](#client-options)
+- [Responses & Errors](#responses--errors)
+- [TypeScript](#typescript)
+- [Development](#development)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
 
-Using the Serphouse API wrapper for Node.js is really simple.
-Follow these steps to integrate it into your project:
+---
 
-## Documentation
+## Why This SDK
 
-Documentation of Serphouse's API and their usage is available at [https://docs.serphouse.com/](https://docs.serphouse.com/)
+| | |
+|---|---|
+| **20 API methods** | Google, Bing, and Yahoo SERP plus Google verticals and account utilities — all typed and ready to call |
+| **Zero boilerplate** | Auth headers, JSON parsing, and error mapping are handled for you |
+| **Two call styles** | Use namespaced methods (`client.google.search`) or flat aliases (`client.google_search`) — same underlying API |
+| **TypeScript-first** | Exported types for every search engine, parameter set, and response shape |
+| **JSON or HTML** | Request structured JSON by default, or pass `responseType: 'html'` when you need raw markup |
 
-## Prerequisites
+---
 
-node >= 14.21.3
+## Quick Start
 
-## Installation
+**1.** Get your API key from the [SERPHouse Dashboard](https://app.serphouse.com/register).
+
+**2.** Install the package:
 
 ```bash
-npm install @serphouse/serphouse-nodejs --save
+npm install @serphouse/serphouse-nodejs
 ```
 
-## Configuration Using JavaScript
+**3.** Create a client and run your first search:
+
+```ts
+import { SERPHouse } from '@serphouse/serphouse-nodejs';
+
+const client = new SERPHouse('YOUR_API_KEY');
+
+const { results } = await client.google.search({
+  q: 'Fresh Bagels',
+  domain: 'google.com',
+  lang: 'en',
+  device: 'desktop',
+  loc: 'New York,United States',
+});
+```
+
+> **CommonJS?** `const { SERPHouse } = require('@serphouse/serphouse-nodejs');` works the same way.
+
+---
+
+## What You Can Build
+
+For SEO teams, agencies, and SaaS builders who need live search data inside their own applications — no scrapers, no proxy management, no captcha headaches.
+
+| Use case | SDK call |
+|----------|----------|
+| **Track rankings** | `client.google.search({ q: 'crm software', loc: 'United States', … })` |
+| **Beat competitors** | `client.google.search` with `page` and `date_range` filters |
+| **Own local search** | `client.google.local({ q: 'emergency plumber', loc: 'Chicago,Illinois,United States', … })` |
+| **Discover keywords** | `client.google.autocomplete({ q: 'best saas for', … })` — 5 credits/request |
+| **Monitor on Bing** | `client.bing.search({ q: 'your brand', loc: 'United States', device: 'mobile', … })` |
+| **Multi-engine coverage** | `client.yahoo.news` alongside `client.google.news` for the same query |
+| **Resolve locations** | `client.extra.location_search({ q: 'Austin', type: 'google' })` → use `loc` or `loc_id` in searches |
+
+---
+
+## SDK Overview
+
+The `SERPHouse` client groups **20 methods** across four namespaces. Google and Bing search endpoints require exactly one location field — `loc` (e.g. `Austin,Texas,United States`) or `loc_id` (from `extra.location_search`). Never send both or omit both. Yahoo SERP methods do not require location.
+
+### Reference
+
+| Method | Description | Docs |
+|--------|-------------|------|
+| `extra.account_info` | Account balance, plan, and credit usage | [Account Info](https://docs.serphouse.com/extra-apis/account-info) |
+| `extra.domain_list` | Supported Google, Bing, and Yahoo domains | [Domains List](https://docs.serphouse.com/extra-apis/domains-list) |
+| `extra.language_list` | Language codes by engine (`google` \| `bing` \| `yahoo`) | [Languages List](https://docs.serphouse.com/extra-apis/languages-list) |
+| `extra.location_search` | Resolve city/country names to `loc_id` | [Locations List](https://docs.serphouse.com/extra-apis/locations-list) |
+
+### Google
+
+| Method | Alias | Description | Docs |
+|--------|-------|-------------|------|
+| `google.search` | `google_search` | Web search | [Search API](https://docs.serphouse.com/google-apis/google-search-api) |
+| `google.image` | `google_image` | Image search | [Image API](https://docs.serphouse.com/google-apis/google-image-api) |
+| `google.news` | `google_news` | News search | [News API](https://docs.serphouse.com/google-apis/google-news-api) |
+| `google.shopping` | `google_shopping` | Shopping & products | [Shopping API](https://docs.serphouse.com/google-apis/google-shopping-api) |
+| `google.video` | `google_video` | Video results | [Videos API](https://docs.serphouse.com/google-apis/google-videos-api) |
+| `google.short_video` | `google_short_video` | Shorts, TikTok, Reels | [Short Videos API](https://docs.serphouse.com/google-apis/google-short-videos-api) |
+| `google.local` | `google_local` | Local / Maps listings | [Local API](https://docs.serphouse.com/google-apis/google-local-api) |
+| `google.jobs` | `google_jobs` | Job listings | [Jobs API](https://docs.serphouse.com/google-apis/google-jobs-api) |
+| `google.forums` | `google_forums` | Forum & discussion results | [Forums API](https://docs.serphouse.com/google-apis/google-forums-api) |
+| `google.autocomplete` | `google_autocomplete` | Autocomplete suggestions | [Autocomplete API](https://docs.serphouse.com/google-apis/google-autocomplete-api) |
+
+### Bing
+
+| Method | Alias | Description | Docs |
+|--------|-------|-------------|------|
+| `bing.search` | `bing_search` | Web search | [Search API](https://docs.serphouse.com/bing-apis/bing-search-api) |
+| `bing.image` | `bing_image` | Image search | [Image API](https://docs.serphouse.com/bing-apis/bing-image-api) |
+| `bing.news` | `bing_news` | News search | [News API](https://docs.serphouse.com/bing-apis/bing-news-api) |
+
+### Yahoo
+
+| Method | Alias | Description | Docs |
+|--------|-------|-------------|------|
+| `yahoo.search` | `yahoo_search` | Web search | [Search API](https://docs.serphouse.com/yahoo-apis/yahoo-search-api) |
+| `yahoo.image` | `yahoo_image` | Image search | [Image API](https://docs.serphouse.com/yahoo-apis/yahoo-image-api) |
+| `yahoo.news` | `yahoo_news` | News search | [News API](https://docs.serphouse.com/yahoo-apis/yahoo-news-api) |
+
+> Endpoint-level parameter details live in the [`doc/`](doc/) folder and on [docs.serphouse.com](https://docs.serphouse.com/).
+
+---
+
+## Client Options
+
+Pass a second argument to the constructor to customize behavior:
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `baseUrl` | `https://api.serphouse.com` | API base URL |
+| `timeout` | `60000` | Request timeout in milliseconds |
+
+Authentication is key-only — pass your API key as the first constructor argument. The SDK sends it as a `Bearer` token on every request.
+
+---
+
+## Responses & Errors
+
+| | |
+|---|---|
+| **Success shape** | `{ status: 'success', msg: string, results: T }` — every method returns a Promise resolving to this |
+| **HTML responses** | Pass `{ responseType: 'html' }` as the second argument on any POST method |
+| **Errors** | Failed requests throw `SERPHouseError` with `statusCode`, `apiMessage`, and `apiError` fields |
+| **Validation** | API validation errors arrive as structured field messages inside `apiError` |
+
+---
+
+## TypeScript
+
+Types ship with the package — no `@types` install needed.
+
+| Export | Purpose |
+|--------|---------|
+| `SERPHouse` | Main client class |
+| `SERPHouseError` | Typed error for failed API calls |
+| `GoogleSearchParams` | Parameters for all Google endpoints |
+| `BingSearchParams` | Parameters for Bing endpoints |
+| `YahooSearchParams` / `YahooImageParams` | Parameters for Yahoo endpoints |
+| `ApiSuccessResponse` | Success response wrapper |
+| `RequestOptions` | Per-request options (`responseType`) |
+
+---
+
+## Development
 
 ```bash
-
-var serphouse = require("@serphouse/serphouse-nodejs")("YOUR_API_KEY");
-
-OR
-
-var SerphouseAPI = require("@serphouse/serphouse-nodejs");
-var serphouse = new SerphouseAPI("YOUR_API_KEY");
-
-OR
-
-var SerphouseAPI = require("@serphouse/serphouse-nodejs");
-var serphouse = new SerphouseAPI();
-serphouse.setApiToken("YOUR_API_KEY");
+git clone https://github.com/SERPHouse/serphouse-nodejs.git
+cd serphouse-nodejs
+npm install
 ```
 
-## Configuration Using TypeScript
+| Command | Description |
+|---------|-------------|
+| `npm run build` | Compile TypeScript to `lib/` |
+| `npm run dev` | Watch mode — recompile on change |
+| `npm test` | Run Jest tests (requires `API_KEY` in `.env`) |
+| `npm run lint` | ESLint on `src/` |
 
-```js
-import * as SerphouseAPI from "@serphouse/serphouse-nodejs";
-var serphouse = new SerphouseAPI();
-serphouse.setApiToken("YOUR_API_KEY");
-```
-
-## Get API Key
-
-You can obtain an API key by registering at [https://app.serphouse.com/register](https://app.serphouse.com/register). This key will be required for accessing the API.
-
-## Examples
-
-1. [Serp Api](#serp_api)
-
-2. [Domains List](#domains)
-
-3. [Language List](#language)
-
-4. [Locations List](#location)
-
-5. [Account Info](#account)
-
-6. [Trends Api](#trends)
+Copy `.env.example` to `.env` and add your API key before running integration tests.
 
 ---
 
-> ### [Serp Api](#examples)
+## Troubleshooting
 
-1. SERP Live
-
-```js
-/** Performing a realtime search  */
-var payload = {
-  data: {
-    q: "Coffee",
-    domain: "google.com",
-    lang: "en",
-    device: "desktop",
-    serp_type: "web",
-    loc: "Alba,Texas,United States",
-    verbatim: 0,
-    postback_url: "https://webhook.site/8f885f1f-c38a-4a10-8506-335441213208",
-    page: 1,
-    num_result: 10,
-  },
-  path: { responseType: "json" },
-};
-
-try {
-  var response = await serphouse.SerpApi.live(payload);
-} catch (error) {
-  return;
-}
-```
-
-If you need to get response by responseType HTML or Json then you can use Like Below Example:
-
-```js
-serphouse.SerpApi.live("DATA_ARRAY", "responseType"); // default responseType is Json
-```
-
-2. SERP Schedule
-
-```js
-/** Create a new schedule */
-var payload = {
-  data: [
-    {
-      q: "Coffee",
-      domain: "google.com",
-      lang: "en",
-      device: "desktop",
-      serp_type: "web",
-      loc: "Alba,Texas,United States",
-      verbatim: 0,
-      postback_url: "https://webhook.site/8f885f1f-c38a-4a10-8506-335441213208",
-      page: 1,
-      num_result: 10,
-    },
-  ],
-};
-
-try {
-  var response = await serphouse.SerpApi.schedule(payload);
-} catch (error) {
-  return;
-}
-```
-
-3. SERP Check
-
-```js
-/** You will get a status of your serp task */
-var payload = { query: { id: 127105618 } };
-try {
-  var response = await serphouse.SerpApi.check(payload);
-} catch (error) {
-  return;
-}
-```
-
-4. SERP Get
-
-```js
-/** you will receive an json array containing a result of your serp query */
-var payload = {
-  query: { id: 127673427 },
-  path: { responseType: "html" }, // path is optional default get json
-};
-try {
-  var response = await serphouse.SerpApi.get(payload);
-} catch (error) {
-  return;
-}
-```
-
-If you need to get response by responseType HTML or Json then you can use like below example:
-
-```js
-serphouse.SerpApi.get("SERP_ID", "responseType"); // default responseType is Json
-```
+| Issue | Fix |
+|-------|-----|
+| `API key is required` | Pass a non-empty string to `new SERPHouse('…')` |
+| Invalid key | Verify your key in the [SERPHouse dashboard](https://serphouse.com) |
+| Credit exhausted | Check balance with `client.extra.account_info()` |
+| Location error | For Google and Bing, include `loc` or `loc_id` (not both); use `extra.location_search` to resolve IDs |
+| Request timed out | Increase `timeout` in client options or check network connectivity |
+| Type errors | Import parameter types from `@serphouse/serphouse-nodejs` — see [TypeScript](#typescript) |
 
 ---
 
-> ### [Domains List](#examples)
+## Contributing
 
-1. Get Domains List
+Contributions are welcome. Please keep changes focused and match existing code style.
 
-```js
-/** Get domains list  */
-try {
-  var response = await serphouse.Domains.list();
-} catch (error) {
-  return;
-}
+```bash
+git checkout -b feature/your-feature
+npm install
+npm run build
+npm test
+git commit -m "Add your feature"
+git push origin feature/your-feature
 ```
+
+Then open a Pull Request. Update this README if you change setup, configuration, or public API surface.
 
 ---
 
-> ### [Language List](#examples)
+## License
 
-1. Get Languages List
-
-```js
-/** Get list of languages by Google, Bing and Yahoo  */
-try {
-  const payload = { path: { type: "google" } };
-  var response = await serphouse.Languages.list(payload);
-} catch (error) {
-  return;
-}
-```
-
-If you need to get Languages List by google, bing and yahoo then you can use like below example:
-
-```js
-serphouse.Languages.list({ type: "bing" }); // default type is google
-```
-
----
-
-> ### [Locations List](#examples)
-
-1. Get Locations List
-
-```js
-/** Get locations available for our SERP API  */
-try {
-  const payload = {
-    query: {
-      q: "india",
-      type: "google",
-    },
-  };
-  var response = await serphouse.Location.search(payload);
-} catch (error) {
-  return;
-}
-```
-
----
-
-> ### [Account Info](#examples)
-
-1. Get Account Information
-
-```js
-/** Get your account information */
-try {
-  var response = await serphouse.Account.fetch();
-} catch (error) {
-  return;
-}
-```
-
-> ### [Trends Api](#examples)
-
-1. Trend Search
-
-```js
-/** Performing a realtime google trends search  */
-try {
-  var payload = {
-    time_zone_offset: -330,
-    keywords: "google,youtube",
-    time: "now 1-d",
-  };
-  var response = await serphouse.Trends.search(payload);
-} catch (error) {
-  return;
-}
-```
-
-2. Trend Schedule
-
-```js
-/** Create trend schedule  */
-try {
-  var payload = {
-    data: [
-      {
-        time_zone_offset: -330,
-        keywords: "google,youtube",
-        time: "now 1-d",
-      },
-    ],
-  };
-  var response = await serphouse.Trends.schedule(payload);
-} catch (error) {
-  return;
-}
-```
-
-3. Get TimeZone List
-
-```js
-/** Retrieve full list of timezone and its offset value  */
-try {
-  var response = await serphouse.Trends.timeZoneList();
-} catch (error) {
-  return;
-}
-```
-
-4. Get Categories List
-
-```js
-/** Retrieve full list of categories and sub category  */
-try {
-  var response = await serphouse.Trends.categoryList();
-} catch (error) {
-  return;
-}
-```
-
-5. Get Country and State List
-
-```js
-/** Retrieve full list of country and state */
-try {
-  var response = await serphouse.Trends.countryStateList();
-} catch (error) {
-  return;
-}
-```
-
-6. Get Language List
-
-```js
-/** Retrieve full list of language. */
-try {
-  var response = await serphouse.Trends.languageList();
-} catch (error) {
-  return;
-}
-```
-
-7. Trends Check
-
-```js
-/** Check search status. */
-try {
-  var payload = { query: { id: 127105618 } };
-  var response = await serphouse.Trends.check(payload);
-} catch (error) {
-  return;
-}
-```
-
-8. Trends Get
-
-```js
-/** Get result of your trend search query. */
-try {
-  var payload = { query: { id: 127105618 } };
-  var response = await serphouse.Trends.get(payload);
-} catch (error) {
-  return;
-}
-```
-
-## Response
-
-Example of success response.
-
-```js
-{Response : {"status":"success","msg":"Completed","search_metadata":{"id":128078258,"status":"success","created_at":"2024-05-04T06:20:10.000000Z","processed_at":"2024-05-04 06:20:10"},"search_parameters":{"langauge_code":"en-US","geo":"US","keywords":"google,youtube","time_zone_offset":"-330","time":"now 1-d","category":0,"property":"youtube"},"results":{"TIMESERIES":[{"time":"1714716960","formattedTime":"May 3, 2024 at 11:46 AM","formattedAxisTime":"May 3 at 11:46 AM","value":[19,72],"hasData":[true,true],"formattedValue":["19","72"]}],"GEO_MAP":{"google":{"default":{"geoMapData":[{"geoCode":"US-VT","geoName":"Vermont","value":[100],"formattedValue":["100"],"maxValueIndex":0,"hasData":[true]}]}},"youtube":{"default":{"geoMapData":[{"geoCode":"US-NH","geoName":"New Hampshire","value":[100],"formattedValue":["100"],"maxValueIndex":0,"hasData":[true]}]}}},"RELATED_QUERIES":{"google":{"default":{"rankedList":[{"rankedKeyword":[{"query":"google link","value":100,"formattedValue":"100","hasData":true,"link":"/trends/explore?q=google+link&date=now+1-d&geo=US"}]},{"rankedKeyword":[{"query":"the man who killed google search","value":1650,"formattedValue":"+1,650%","link":"/trends/explore?q=the+man+who+killed+google+search&date=now+1-d&geo=US"}]}]}},"youtube":{"default":{"rankedList":[{"rankedKeyword":[{"query":"on youtube","value":100,"formattedValue":"100","hasData":true,"link":"/trends/explore?q=on+youtube&date=now+1-d&geo=US"}]},{"rankedKeyword":[{"query":"jayson tatum youtube channel","value":5300,"formattedValue":"Breakout","link":"/trends/explore?q=jayson+tatum+youtube+channel&date=now+1-d&geo=US"}]}]}}}}}}
-
-```
-
-Example of validation errors response.
-
-```js
-  {"status":"error","msg":"validation_error","error":{"time_zone_offset":["The time zone offset field is required."]}}
-```
+[MIT License](LICENSE) — Copyright SERPHouse.
